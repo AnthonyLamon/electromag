@@ -39,5 +39,7 @@ if __name__ == "__main__":
     world.show_circuit(
         {0: (26, 60), 1: (26, 74), 2: (74, 74), 3: (74, 60), 4: (74, 40), 5: (74, 26), 6: (26, 26), 7: (26, 40)}
     )
+    print(world._circuit_voltage[26, 60])
+    
     world.compute()
     world.show_all()
