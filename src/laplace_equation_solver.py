@@ -14,7 +14,7 @@ class LaplaceEquationSolver:
         """
         Laplace solver constructor. Used to define the number of iterations for the relaxation method.
 
-        Parameters
+        Parameters1
         ----------
         nb_iterations : int
             Number of iterations performed to obtain the potential by the relaxation method (default = 1000).
