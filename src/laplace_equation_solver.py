@@ -92,8 +92,25 @@ class LaplaceEquationSolver:
             the electrical components and in the empty space between the electrical components, while the field V
             always gives V(r, θ) = 0 if (r, θ) is not a point belonging to an electrical component of the circuit.
         """
+        num_rows, num_cols = constant_voltage.shape
+
+        # Initialisé le potentiel array with zeros
+        pot = np.copy(constant_voltage)
+
+        #  relaxation iterations
         
-        raise NotImplementedError
+        for _ in range(self.nb_iterations):
+            for i in range(1, num_rows - 1):
+                for j in range(1, num_cols - 1):
+                    r = np.sqrt((i)**(2) + (j)**2)
+                    th = np.arctan(j/i)
+                # relaxation equation
+                    pot[i, j] = (((delta_theta)**(2)*r**(2)*(pot[r+delta_r,th]+pot[r-delta_r,th])+
+                    r*delta_r*delta_theta**(2)*(pot(r+delta_r,th))
+                    +delta_r**(2)*(pot[r,th+delta_theta]+pot[r,th-delta_theta]))/(2*r**(2)*delta_theta**(2)+
+                     r*delta_r*delta_theta**(2)+ 2*delta_r**(2)))
+        return pot
+        #raise NotImplementedError
 
     def solve(
             self,
