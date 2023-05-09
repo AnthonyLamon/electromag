@@ -154,7 +154,7 @@ class World:
         #Par la suite nous trouvons le champ magnétique avec Biot-Savard:
         
         #Trouvons finalement le vecteur Poynting:
-        self._energy_flux = (1/mu_0) * np.cross(self._electric_field, self._magnetic_field)
+        #self._energy_flux = (1/mu_0) * np.cross(self._electric_field, self._magnetic_field)
         
 
     def show_circuit(self, nodes_position_in_figure: dict = None):
