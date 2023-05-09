@@ -14,7 +14,7 @@ class LaplaceEquationSolver:
         """
         Laplace solver constructor. Used to define the number of iterations for the relaxation method.
 
-        Parameters1
+        Parameters
         ----------
         nb_iterations : int
             Number of iterations performed to obtain the potential by the relaxation method (default = 1000).
@@ -48,7 +48,9 @@ class LaplaceEquationSolver:
             the electrical components and in the empty space between the electrical components, while the field V
             always gives V(x, y) = 0 if (x, y) is not a point belonging to an electrical component of the circuit.
         """
-        raise NotImplementedError
+        P: ScalarField
+        P = ((constant_voltage[()+delta_x, ()] + constant_voltage[()-delta_x, ()]) * delta_x ** 2 + (constant_voltage[(), ()+delta_y] + constant_voltage[(), ()+delta_y]) * delta_y ** 2) / 2*(delta_x ** 2 + delta_y ** 2 )
+        #Comment mettre les coordonnées? Quoi mettre dans les parenthèses? 
 
     def _solve_in_polar_coordinate(
             self,

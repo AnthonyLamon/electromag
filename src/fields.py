@@ -7,8 +7,11 @@ import warnings
 import numpy as np
 import matplotlib.pyplot as plt
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> e3b70c2b55112af00c02003cf5543ce5fc6b9211
 class ScalarField(np.ndarray):
     """
     Scalar field. The map must be of the kind
