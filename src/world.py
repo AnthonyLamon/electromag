@@ -81,6 +81,8 @@ class World:
         self._energy_flux = None
         self._magnetic_field = None
         self._potential = None
+        
+       
 
     @property
     def minimum(self) -> Position:
@@ -145,7 +147,15 @@ class World:
         nb_relaxation_iterations : int
             Number of iterations performed to obtain the potential by the relaxation method (default = 1000)
         """
-        raise NotImplementedError
+        #Commençons par trouver le champ du potentie avec Laplace:
+        self._potential = LaplaceEquationSolver(nb_relaxation_iterations).solve(self._circuit_voltage, self._coordinate_system, self.delta_q1, self.delta_q2)
+        # Trouvons ensuite le champ électrique avec le potentiel: 
+        self._electric_field = self._potential.gradient()
+        #Par la suite nous trouvons le champ magnétique avec Biot-Savard:
+        
+        #Trouvons finalement le vecteur Poynting:
+        self._energy_flux = (1/mu_0) * np.cross(self._electric_field, self._magnetic_field)
+        
 
     def show_circuit(self, nodes_position_in_figure: dict = None):
         """
