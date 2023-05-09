@@ -66,7 +66,7 @@ class LaplaceEquationSolver:
                     #potentiel[i,j] = ((potentiel[i+int(delta_x),j]+ potentiel[i-int(delta_x),j]) * (delta_y)**2 +
                     #(potentiel[i,j+int(delta_y)]+ potentiel[i,j-int(delta_y)]) * (delta_x)**2)/(2 * ((delta_x**2)+(delta_y**2)))
 
-        return potentiel
+        return ScalarField(potentiel)
         #raise NotImplementedError
 
     def _solve_in_polar_coordinate(
