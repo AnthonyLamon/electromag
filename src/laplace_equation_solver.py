@@ -50,19 +50,19 @@ class LaplaceEquationSolver:
         """
         num_rows, num_cols = constant_voltage.shape
 
-        # Initialize the potential array with zeros
-        potential = np.zeros_like(constant_voltage)
+        # Initialisé le potentiel array with zeros
+        potentiel = np.copy(constant_voltage)
 
-        # Perform relaxation iterations
+        #  relaxation iterations
         
         for _ in range(self.nb_iterations):
             for i in range(1, num_rows - 1):
                 for j in range(1, num_cols - 1):
-                # Apply the relaxation equation
-                    potential[i, j] = ((potential(i+delta_x,y)+ potential(i-delta_x,y))*(delta_x)**2 \
-                    +(potential(i,y+delta_y)+ potential(i,y-delta_y))*(delta_y)**2)/2*((delta_x**2)+(delta_y**2))
+                # relaxation equation
+                    potentiel[i, j] = ((potentiel(i+delta_x,y)+ potentiel(i-delta_x,y))*(delta_x)**2 \
+                    +(potentiel(i,y+delta_y)+ potentiel(i,y-delta_y))*(delta_y)**2)/2*((delta_x**2)+(delta_y**2))
 
-        return potential
+        return potentiel
         #raise NotImplementedError
 
     def _solve_in_polar_coordinate(
