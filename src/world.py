@@ -150,7 +150,7 @@ class World:
         #Commençons par trouver le champ du potentie avec Laplace:
         self._potential = LaplaceEquationSolver(nb_relaxation_iterations).solve(self._circuit_voltage, self._coordinate_system, self.delta_q1, self.delta_q2)
         # Trouvons ensuite le champ électrique avec le potentiel: 
-        self._electric_field = np.gradient(self._potential)
+        self._electric_field = -self._potential.gradient()
         #Par la suite nous trouvons le champ magnétique avec Biot-Savard:
         
         #Trouvons finalement le vecteur Poynting:
