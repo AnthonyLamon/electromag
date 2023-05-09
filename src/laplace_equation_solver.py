@@ -59,7 +59,7 @@ class LaplaceEquationSolver:
             for i in range(1, num_rows - 1):
                 for j in range(1, num_cols - 1):
                 # relaxation equation
-                    potentiel[i, j] = ((potentiel[i+delta_x][j]+ potentiel[i-delta_x][j])*(delta_y)**2 +
+                    potentiel[i][j] = ((potentiel[i+delta_x][j]+ potentiel[i-delta_x][j])*(delta_y)**2 +
                     (potentiel[i][j+delta_y]+ potentiel[i][j-delta_y])*(delta_x)**2)/2*((delta_x**2)+(delta_y**2))
 
         return potentiel
