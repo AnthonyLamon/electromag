@@ -60,11 +60,7 @@ class LaplaceEquationSolver:
             (potentiel[2:, 1:num_cols-1] + potentiel[:num_rows-2, 1:num_cols-1]) * delta_y**2 +
             (potentiel[1:num_rows-1, 2:] + potentiel[1:num_rows-1, :num_cols-2]) * delta_x**2
             ) / (2 * (delta_x**2 + delta_y**2))
-            #for i in range(1, num_rows - 1):
-                #for j in range(1, num_cols - 1):
-                # relaxation equation
-                    #potentiel[i,j] = ((potentiel[i+int(delta_x),j]+ potentiel[i-int(delta_x),j]) * (delta_y)**2 +
-                    #(potentiel[i,j+int(delta_y)]+ potentiel[i,j-int(delta_y)]) * (delta_x)**2)/(2 * ((delta_x**2)+(delta_y**2)))
+            
             np.copyto(potentiel, constant_voltage, where=constant_voltage !=0)
         return ScalarField(potentiel)
         #raise NotImplementedError
@@ -108,13 +104,11 @@ class LaplaceEquationSolver:
             theta_values = np.arange(1, num_cols - 1)
             R, TH = np.meshgrid(r_values, theta_values, indexing='ij')
 
-        # Compute the indices for neighboring points
             r_plus = R + delta_r
             r_minus = R - delta_r
             theta_plus = TH + delta_theta
             theta_minus = TH - delta_theta
 
-        # Compute the updated potential using vectorized calculations
             updated_pot = (
             (delta_theta**2 * R**2 * (pot[r_plus, TH] + pot[r_minus, TH])) +
             (R * delta_r * delta_theta**2 * pot[r_plus, TH]) +
