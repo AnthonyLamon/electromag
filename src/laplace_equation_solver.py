@@ -14,7 +14,7 @@ class LaplaceEquationSolver:
         """
         Laplace solver constructor. Used to define the number of iterations for the relaxation method.
 
-        Parameters
+        Parameters1
         ----------
         nb_iterations : int
             Number of iterations performed to obtain the potential by the relaxation method (default = 1000).
@@ -48,9 +48,22 @@ class LaplaceEquationSolver:
             the electrical components and in the empty space between the electrical components, while the field V
             always gives V(x, y) = 0 if (x, y) is not a point belonging to an electrical component of the circuit.
         """
-        P: ScalarField
-        P = ((constant_voltage[()+delta_x, ()] + constant_voltage[()-delta_x, ()]) * delta_x ** 2 + (constant_voltage[(), ()+delta_y] + constant_voltage[(), ()+delta_y]) * delta_y ** 2) / 2*(delta_x ** 2 + delta_y ** 2 )
-        #Comment mettre les coordonnées? Quoi mettre dans les parenthèses? 
+        num_rows, num_cols = constant_voltage.shape
+
+        # Initialize the potential array with zeros
+        potential = np.zeros_like(constant_voltage)
+
+        # Perform relaxation iterations
+        
+        for _ in range(self.nb_iterations):
+            for i in range(1, num_rows - 1):
+                for j in range(1, num_cols - 1):
+                # Apply the relaxation equation
+                    potential[i, j] = ((potential(i+delta_x,y)+ potential(i-delta_x,y))*(delta_x)**2 \
+                    +(potential(i,y+delta_y)+ potential(i,y-delta_y))*(delta_y)**2)/2*((delta_x**2)+(delta_y**2))
+
+        return potential
+        #raise NotImplementedError
 
     def _solve_in_polar_coordinate(
             self,
@@ -79,6 +92,7 @@ class LaplaceEquationSolver:
             the electrical components and in the empty space between the electrical components, while the field V
             always gives V(r, θ) = 0 if (r, θ) is not a point belonging to an electrical component of the circuit.
         """
+        
         raise NotImplementedError
 
     def solve(
