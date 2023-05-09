@@ -104,16 +104,27 @@ class LaplaceEquationSolver:
         #  relaxation iterations
         
         for _ in range(self.nb_iterations):
-            for i in range(1, num_rows - 1):
-                for j in range(1, num_cols - 1):
-                    r = np.sqrt((i)**(2) + (j)**2)
-                    th = np.arctan(j/i)
-                # relaxation equation
-                    pot[i, j] = (((delta_theta)**(2)*r**(2)*(pot[r+delta_r,th]+pot[r-delta_r,th])+
-                    r*delta_r*delta_theta**(2)*(pot(r+delta_r,th))
-                    +delta_r**(2)*(pot[r,th+delta_theta]+pot[r,th-delta_theta]))/(2*r**(2)*delta_theta**(2)+
-                     r*delta_r*delta_theta**(2)+ 2*delta_r**(2)))
-        return pot
+            r_values = np.arange(1, num_rows - 1)
+            theta_values = np.arange(1, num_cols - 1)
+            R, TH = np.meshgrid(r_values, theta_values, indexing='ij')
+
+        # Compute the indices for neighboring points
+            r_plus = R + delta_r
+            r_minus = R - delta_r
+            theta_plus = TH + delta_theta
+            theta_minus = TH - delta_theta
+
+        # Compute the updated potential using vectorized calculations
+            updated_pot = (
+            (delta_theta**2 * R**2 * (pot[r_plus, TH] + pot[r_minus, TH])) +
+            (R * delta_r * delta_theta**2 * pot[r_plus, TH]) +
+            (delta_r**2 * (pot[R, theta_plus] + pot[R, theta_minus]))
+            ) / (2 * R**2 * delta_theta**2 + R * delta_r * delta_theta**2 + 2 * delta_r**2)
+
+        # Update the potential array with the new values
+            pot[1:num_rows-1, 1:num_cols-1] = updated_pot
+
+        return ScalarField(pot)
         #raise NotImplementedError
 
     def solve(
