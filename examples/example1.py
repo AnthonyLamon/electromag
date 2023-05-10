@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     wires = [
         Wire((26, 60), (26, 74), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
-        Wire((26, 74), (74, 74), horizontal_eqs, cartesian_variables, HIGH_WIRE_RESISTANCE),
+        VoltageSource((26, 74), (74, 74), horizontal_eqs, cartesian_variables, BATTERY_VOLTAGE),
         Wire((74, 74), (74, 60), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((74, 60), (74, 40), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((74, 40), (74, 26), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),

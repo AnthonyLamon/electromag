@@ -14,14 +14,19 @@ if __name__ == "__main__":
     cartesian_variables = Symbol("x"), Symbol("y")
     x, y = cartesian_variables
 
-    x_expression_horizontal = x ** 2
-    y_expression_horizontal = y ** 2 
-    cercle = (x_expression_horizontal, y_expression_horizontal)
+    x_expression_cercle = x ** 2
+    y_expression_cercle = y ** 2 
+    cercle = (x_expression_cercle, y_expression_cercle)
+    
+    x_expression_horizontal = x 
+    y_expression_horizontal = y * 0  
+    horizontal_eqs = (x_expression_horizontal, y_expression_horizontal)
 
     wires = [
-        Wire((50, 26), (50, 74), cercle, cartesian_variables, LOW_WIRE_RESISTANCE),
-        Wire((50, 74), (50, 26), cercle, cartesian_variables, LOW_WIRE_RESISTANCE),
-        VoltageSource((38, 26), (30, 26), cercle, cartesian_variables, BATTERY_VOLTAGE)
+        Wire((38, 26), (38, 74), cercle, cartesian_variables, LOW_WIRE_RESISTANCE),
+        Wire((30, 74), (30, 26), cercle, cartesian_variables, LOW_WIRE_RESISTANCE),
+        VoltageSource((38, 26), (30, 26), horizontal_eqs, cartesian_variables, BATTERY_VOLTAGE),
+        Wire((38, 74), (30, 26), horizontal_eqs, cartesian_variables, HIGH_WIRE_RESISTANCE)
     ]
     ground_position = (38, 26)
 
