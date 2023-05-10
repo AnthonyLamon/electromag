@@ -24,23 +24,23 @@ if __name__ == "__main__":
 
     wires = [
         Wire((26, 26), (26, 42), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
-        VoltageSource((26, 42), (26, 58), vertical_eqs, cartesian_variables, BATTERY_VOLTAGE),
         Wire((26, 58), (26, 74), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((42, 26), (42, 42), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((42, 42), (42, 58), vertical_eqs, cartesian_variables, HIGH_WIRE_RESISTANCE),
         Wire((42, 58), (42, 74), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((58, 26), (58, 42), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
-        Wire((58, 42), (58, 42), vertical_eqs, cartesian_variables, HIGH_WIRE_RESISTANCE),
+        Wire((58, 42), (58, 58), vertical_eqs, cartesian_variables, HIGH_WIRE_RESISTANCE),
         Wire((58, 58), (58, 74), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((74, 26), (74, 42), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
-        VoltageSource((74, 42), (74, 58), vertical_eqs, cartesian_variables, BATTERY_VOLTAGE),
         Wire((74, 58), (74, 74), vertical_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((26, 74), (42, 74), horizontal_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((42, 74), (58, 74), horizontal_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((58, 74), (74, 74), horizontal_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((26, 26), (42, 26), horizontal_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((42, 26), (58, 26), horizontal_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
-        Wire((58, 26), (74, 26), horizontal_eqs, cartesian_variables, LOW_WIRE_RESISTANCE)
+        Wire((58, 26), (74, 26), horizontal_eqs, cartesian_variables, LOW_WIRE_RESISTANCE),
+        VoltageSource((26, 42), (26, 58), vertical_eqs, cartesian_variables, BATTERY_VOLTAGE),
+        VoltageSource((74, 42), (74, 58), vertical_eqs, cartesian_variables, BATTERY_VOLTAGE)
     ]
     ground_position = (26, 42)
     
