@@ -154,7 +154,7 @@ class World:
         #Par la suite nous trouvons le champ magnétique avec Biot-Savard:
         self._magnetic_field = BiotSavartEquationSolver().solve(self._circuit_current, self._coordinate_system, self.delta_q1, self.delta_q2)
         #Trouvons finalement le vecteur Poynting:
-        self._energy_flux = (1/mu_0) * np.cross(self._electric_field, self._magnetic_field)
+        self._energy_flux = (1/mu_0) * VectorField(np.cross(self._electric_field, self._magnetic_field))
         
 
     def show_circuit(self, nodes_position_in_figure: dict = None):
