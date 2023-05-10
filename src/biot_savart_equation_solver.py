@@ -38,21 +38,32 @@ class BiotSavartEquationSolver:
             B_z(x, y) are the 3 components of the magnetic vector at a given point (x, y) in space. Note that
             B_x = B_y = 0 is always True in our 2D world.
         """
-        position, courant = [], []
-        for ligne, ligne_val in enumerate(electric_current):
-            for colonne, cell in enumerate(ligne_val):
-                if cell[0] or cell[1] !=0:
-                    position.append((ligne, colonne, 0))
-                    courant.append(cell)
+        pos = []
+        current = []
+        #On fait une matrice où on met 0 de champ sur les fils car pas de champs à ces endroits
         magnetic_field = np.zeros((np.shape(electric_current)[0], np.shape(electric_current)[1], 3))
+        #On va ajouter les endroits où il y a du courant et leur valeur dans les listes
+        for ligne, valeur in enumerate(electric_current):
+            for colonne, position in enumerate(valeur):
+                #Y'a t'il un courant?
+                if position[0] or position[1] !=0:
+                    #Si oui on l'ajoute
+                    pos.append((ligne, colonne, 0))
+                    current.append(position)
         
-        for ligne, ligne_val in enumerate(magnetic_field):
-            for colonne, cell in enumerate(ligne_val):
-                if (ligne, colonne, 0) not in position:
-                    r = np.array([ligne, colonne, 0] - np.array(position))
-                    r_norm = (np.linalg.norm(r, axis=1))**3
-                    cross_product = np.cross(courant, r)
-                    magnetic_field[ligne, colonne] = [int(0), int(0), np.sum(mu_0*cross_product[:, 2]/ (4* pi * r_norm))]
+        
+        for ligne, valeur in enumerate(magnetic_field):
+            for colonne, position in enumerate(valeur):
+                #On regarde uniquement les valeurs à l'extérieur du circuit
+                if (ligne, colonne, 0) not in pos:
+                    #On crée le vecteur r
+                    r = np.array([ligne, colonne, 0] - np.array(pos))
+                    #On trouve sa norme
+                    r_norm = (np.linalg.norm(r, axis=1))
+                    #On fait le produit vectoriel entre le courant (dl) et le vecteur r
+                    cross_product = np.cross(current, r)
+                    #On trouve le champ magnétique en z 
+                    magnetic_field[ligne, colonne] = [int(0), int(0), np.sum(mu_0*cross_product[:, 2]/ (4* pi * r_norm) ** 3)]
                     
         return VectorField(magnetic_field)
             
