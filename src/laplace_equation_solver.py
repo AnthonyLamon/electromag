@@ -53,17 +53,15 @@ class LaplaceEquationSolver:
         # Initialisé le potentiel array with zeros
         potentiel = np.copy(constant_voltage)
 
-        #  relaxation iterations
-        
-        for _ in range(self.nb_iterations):
+        #On utilise notre solution de l'équation de Laplce avec la technique de relaxation
+        for i in range(self.nb_iterations):
             potentiel[1:num_rows-1, 1:num_cols-1] = (
             (potentiel[2:, 1:num_cols-1] + potentiel[:num_rows-2, 1:num_cols-1]) * delta_y**2 +
             (potentiel[1:num_rows-1, 2:] + potentiel[1:num_rows-1, :num_cols-2]) * delta_x**2
             ) / (2 * (delta_x**2 + delta_y**2))
-            
+            #On copie le potentiel trouver aux endroit ou le potentiel est non-nul pour ne pas modifier sur le circuit
             np.copyto(potentiel, constant_voltage, where=constant_voltage !=0)
         return ScalarField(potentiel)
-        #raise NotImplementedError
 
     def _solve_in_polar_coordinate(
             self,
