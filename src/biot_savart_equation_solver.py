@@ -38,32 +38,24 @@ class BiotSavartEquationSolver:
             B_z(x, y) are the 3 components of the magnetic vector at a given point (x, y) in space. Note that
             B_x = B_y = 0 is always True in our 2D world.
         """
-        num_rows, num_cols, _ = electric_current.shape
-
-        # Initialize the magnetic field array with zeros
-        magnetic_field = np.zeros_like(electric_current)
-
-        # Calculate the grid coordinates
-        x = np.arange(num_rows) * delta_x
-        y = np.arange(num_cols) * delta_y
-
-        # Compute the meshgrid
-        X, Y = np.meshgrid(x, y, indexing='ij')
-
-        # Calculate the distances between current elements and points
-        distances = np.sqrt((X - X[:, :, np.newaxis])**2 + (Y - Y[:, :, np.newaxis])**2)
-
-        # Compute the contribution to the magnetic field
-        contribution = (
-            electric_current[:, :, 2, np.newaxis] * delta_x * delta_y /
-            (2 * np.pi * distances**3)
-        )
-
-        # Calculate the cross product to obtain the magnetic field components
-
-        magnetic_field[:, :, 2] = np.sum(contribution * distances, axis=2)
-
+        position, courant = [], []
+        for ligne, ligne_val in enumerate(electric_current):
+            for colonne, cell in enumerate(ligne_val):
+                if cell[0] or cell[1] !=0:
+                    position.append((ligne, colonne, 0))
+                    courant.append(cell)
+        magnetic_field = np.zeros((np.shape(electric_current)[0], np.shape(electric_current)[1], 3))
+        
+        for ligne, ligne_val in enumerate(magnetic_field):
+            for colonne, cell in enumerate(ligne_val):
+                if (ligne, colonne, 0) not in position:
+                    r = np.array([ligne, colonne, 0] - np.array(position))
+                    r_norm = (np.linalg.norm(r, axis=1))**3
+                    cross_product = np.cross(courant, r)
+                    magnetic_field[ligne, colonne] = [int(0), int(0), np.sum(mu_0*cross_product[:, 2]/ (4* pi * r_norm))]
+                    
         return VectorField(magnetic_field)
+            
 
     def _solve_in_polar_coordinate(
             self,
@@ -92,7 +84,10 @@ class BiotSavartEquationSolver:
             B_z(r, θ) are the 3 components of the magnetic vector at a given point (r, θ) in space. Note that
             B_r = B_θ = 0 is always True in our 2D world.
         """
+        
+            
         raise NotImplementedError
+        
 
     def solve(
             self,
