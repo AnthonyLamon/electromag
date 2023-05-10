@@ -15,11 +15,11 @@ if __name__ == "__main__":
     x, y = cartesian_variables
 
     x_expression_cercle = x
-    y_expression_cercle = (24 - sqrt(576-x**2)) 
+    y_expression_cercle = (24 - sqrt(576-(x)**2)) 
     cercle_inf = (x_expression_cercle, y_expression_cercle)
 
     x_expression_cercle = x
-    y_expression_cercle =  (sqrt(576-x**2)+24)
+    y_expression_cercle =  (sqrt(576-(x)**2)-24)
     cercle_sup = (x_expression_cercle, y_expression_cercle)
     
     x_expression_horizontal = x 
@@ -28,11 +28,11 @@ if __name__ == "__main__":
 
     wires = [
         Wire((38, 26), (62, 50), cercle_inf, cartesian_variables, LOW_WIRE_RESISTANCE),
-        Wire((62, 50), (38, 74), cercle_sup, cartesian_variables, LOW_WIRE_RESISTANCE),
+        Wire((38, 74), (62, 50), cercle_sup, cartesian_variables, LOW_WIRE_RESISTANCE),
         Wire((30, 26), (6, 50), cercle_inf, cartesian_variables, LOW_WIRE_RESISTANCE),
-        Wire((6, 50), (30, 74), cercle_sup, cartesian_variables, LOW_WIRE_RESISTANCE),
+        Wire((30, 74), (6, 50), cercle_sup, cartesian_variables, LOW_WIRE_RESISTANCE),
         VoltageSource((38, 26), (30, 26), horizontal_eqs, cartesian_variables, BATTERY_VOLTAGE),
-        Wire((38, 74), (30, 26), horizontal_eqs, cartesian_variables, HIGH_WIRE_RESISTANCE)
+        Wire((38, 74), (30, 74), horizontal_eqs, cartesian_variables, HIGH_WIRE_RESISTANCE)
     ]
     ground_position = (38, 26)
 
