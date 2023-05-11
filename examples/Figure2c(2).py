@@ -17,12 +17,12 @@ if __name__ == "__main__":
     x, y, r, M = cartesian_variables
 
     x_expression_sup = x
-    y_expression_sup = float(math.sqrt(r ** 2 -  (x - M ** 2)))
+    y_expression_sup = float(math.sqrt(r ** 2 -  (x - M )**2))
     cercle_supérieur = (x_expression_sup, y_expression_sup)
     
     
     x_expression_inf = x
-    y_expression_inf = -float(math.sqrt(r ** 2 -  (x - M ** 2)))
+    y_expression_inf = -float(math.sqrt(r ** 2 -  (x - M )**2))
     cercle_inférieur = (x_expression_inf, y_expression_inf )
 
     wires = [
