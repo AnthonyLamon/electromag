@@ -2,7 +2,7 @@ import env_examples  # Modifies path, DO NOT REMOVE
 
 from sympy import Symbol
 
-from src import Circuit, CoordinateSystem, VoltageSource, Wire, World
+from src import Circuit, CoordinateSystem, VoltageSource, Wire, World 
 
 
 if __name__ == "__main__":

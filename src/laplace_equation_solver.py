@@ -60,7 +60,9 @@ class LaplaceEquationSolver:
             (potentiel[1:num_rows-1, 2:] + potentiel[1:num_rows-1, :num_cols-2]) * delta_x**2
             ) / (2 * (delta_x**2 + delta_y**2))
             #On copie le potentiel trouver aux endroit ou le potentiel est non-nul pour ne pas modifier sur le circuit
-            np.copyto(potentiel, constant_voltage, where=constant_voltage !=0)
+            #np.copyto(potentiel, constant_voltage, where=constant_voltage !=0)
+            potentiel[constant_voltage != 0] = constant_voltage[constant_voltage != 0]
+
         return ScalarField(potentiel)
 
     def _solve_in_polar_coordinate(
