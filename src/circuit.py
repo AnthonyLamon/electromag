@@ -266,7 +266,7 @@ class Circuit:
                 component.stop_node.potential = component.start_node.potential + component.voltage
             if isinstance(component, Wire):
                 component.stop_node.potential = component.start_node.potential - component.current*component.resistance
-
+            
         for i, node in enumerate(self.nodes):
             node = self.nodes[node][self.NODE_KEY]
             node.label = f"{node.potential:.3f}V"

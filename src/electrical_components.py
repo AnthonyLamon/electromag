@@ -237,3 +237,4 @@ class CurrentSource(ElectricalComponent):
             f"current, i.e. {self._current} A."
         )
         self._current = current
+        self._circuit.update_node_potentials()
