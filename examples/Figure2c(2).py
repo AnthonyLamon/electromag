@@ -26,9 +26,12 @@ if __name__ == "__main__":
     cercle_inférieur = (x_expression_inf, y_expression_inf )
 
     wires = [
-        Wire((40, 50, 10, 50), (60, 50, 10, 50), cercle_supérieur, cartesian_variables, LOW_WIRE_RESISTANCE),
         VoltageSource((60, 50, 10, 50), (60, 50, 10, 50), cercle_inférieur, cartesian_variables, BATTERY_VOLTAGE)
     ]
+    
+    
+    
+    
     ground_position = (60, 50, 10, 50)
 
     circuit = Circuit(wires, ground_position)

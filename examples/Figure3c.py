@@ -95,7 +95,7 @@ if __name__ == "__main__":
     
     
     
-    ground_position = (48, 26)
+    ground_position = (52, 26)
 
     circuit = Circuit(wires, ground_position)
     world = World(circuit=circuit, coordinate_system=CoordinateSystem.CARTESIAN, shape=WORLD_SHAPE)

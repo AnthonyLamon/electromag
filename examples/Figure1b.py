@@ -43,7 +43,7 @@ if __name__ == "__main__":
         VoltageSource((74, 26), (74, 74), vertical_eqs, cartesian_variables, BATTERY_VOLTAGE)
     ]
     ground_position = (26, 26)
-    
+    ground_position = (74, 26)
 
     circuit = Circuit(wires, ground_position)
     world = World(circuit=circuit, coordinate_system=CoordinateSystem.CARTESIAN, shape=WORLD_SHAPE)

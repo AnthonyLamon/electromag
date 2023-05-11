@@ -41,7 +41,7 @@ class BiotSavartEquationSolver:
         pos = []
         current = []
         #On fait une matrice où on met 0 de champ sur les fils car pas de champs à ces endroits
-        magnetic_field = np.zeros((np.shape(electric_current)[0], np.shape(electric_current)[1], 3))
+        champ_magnétique = np.zeros((np.shape(electric_current)[0], np.shape(electric_current)[1], 3))
         #On va ajouter les endroits où il y a du courant et leur valeur dans les listes
         for ligne, valeur in enumerate(electric_current):
             for colonne, position in enumerate(valeur):
@@ -52,7 +52,7 @@ class BiotSavartEquationSolver:
                     current.append(position)
         
         
-        for ligne, valeur in enumerate(magnetic_field):
+        for ligne, valeur in enumerate(champ_magnétique):
             for colonne, position in enumerate(valeur):
                 #On regarde uniquement les valeurs à l'extérieur du circuit
                 if (ligne, colonne, 0) not in pos:
@@ -62,10 +62,12 @@ class BiotSavartEquationSolver:
                     r_norm = (np.linalg.norm(r, axis=1))
                     #On fait le produit vectoriel entre le courant (dl) et le vecteur r
                     cross_product = np.cross(current, r)
-                    #On trouve le champ magnétique en z 
-                    magnetic_field[ligne, colonne] = [int(0), int(0), np.sum(mu_0*cross_product[:, 2]/ (4* pi * r_norm) ** 3)]
+                    #On applique Biot-Savard
+                    Biot = np.sum(mu_0*cross_product[:, 2]/ (4* pi * r_norm ** 3) )
+                    #Le champ magnétique est donc:
+                    champ_magnétique[ligne, colonne] = [int(0), int(0), Biot]
                     
-        return VectorField(magnetic_field)
+        return VectorField(champ_magnétique)
             
 
     def _solve_in_polar_coordinate(
