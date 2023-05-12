@@ -1,4 +1,4 @@
-from examples import env_examples  # Modifies path, DO NOT REMOVE
+import env_examples  # Modifies path, DO NOT REMOVE
 
 from sympy import Symbol
 
